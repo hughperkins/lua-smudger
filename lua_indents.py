@@ -9,6 +9,7 @@ indentsize = int(sys.argv[1].split('=')[1])
 line = sys.stdin.readline()
 indent = 0
 nextindent = 0
+last_line = None
 while line:
   line = line.strip()
   if(line.startswith('if') or line.startswith('for') or line.startswith('while') or line.startswith('function')
@@ -21,5 +22,8 @@ while line:
     nextindent -= 1
   sys.stdout.write(' ' * (indentsize * indent) + line + '\n')
   indent = nextindent
+  last_line = line
   line = sys.stdin.readline()
+if last_line != '':
+  sys.stdout.write('\n')
 
