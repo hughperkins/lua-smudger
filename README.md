@@ -25,8 +25,8 @@ In your ~/.gitconfig file, add following lines:
 
 ```
 [filter "luaindent"]
-	smudge = /path/to/lua_indents.py indent=3
-	clean = /path/to/lua_indents.py indent=2
+	smudge = /path/to/lua_indents.py indent=2
+	clean = /path/to/lua_indents.py indent=3
 
 [core]
 	attributesfile = /path/to/.gitattributes
