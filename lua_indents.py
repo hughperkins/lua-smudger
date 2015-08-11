@@ -12,17 +12,24 @@ nextindent = 0
 last_line = None
 while line:
   line = line.strip()
-  if(line.startswith('if') or line.startswith('for') or line.startswith('while') or line.startswith('function')
-      or line.startswith('local function') or line.find(' = function(') >= 0):
+  comment_pos = line.find('--')
+  if comment_pos >= 0:
+    pc = line[:comment_pos]
+    comments = line[comment_pos:]
+  else:
+    pc = line
+    comments = ''
+  if(pc.startswith('if') or pc.startswith('for') or pc.startswith('while') or pc.startswith('function')
+      or pc.startswith('local function') or pc.find(' = function(') >= 0):
     nextindent += 1
-  elif line.startswith('elseif') or line.startswith('else'):
+  elif pc.startswith('elseif') or pc.startswith('else'):
     indent -= 1
-  if line.startswith('end') or line.endswith('end'):
+  if pc.startswith('end') or pc.endswith('end'):
     indent -= 1
     nextindent -= 1
   # handle brackets...
-  nextindent += line.count('(') - line.count(')')
-  sys.stdout.write(' ' * (indentsize * indent) + line + '\n')
+  nextindent += pc.count('(') - pc.count(')')
+  sys.stdout.write(' ' * (indentsize * indent) + pc + comments + '\n')
   indent = nextindent
   last_line = line
   line = sys.stdin.readline()
