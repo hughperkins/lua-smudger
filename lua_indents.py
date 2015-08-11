@@ -50,12 +50,13 @@ while line:
         block_indent -= 1
       indent += block_indent
       block_indent = next_block_indent
-  if(pc.startswith('if') or pc.startswith('for ') or pc.startswith('while') or pc.startswith('function')
-      or pc.startswith('local function') or pc.find(' = function(') >= 0):
+  pcs = pc.strip()
+  if(pcs.startswith('if') or pcs.startswith('for ') or pcs.startswith('while') or pcs.startswith('function')
+      or pcs.startswith('local function') or pcs.find(' = function(') >= 0):
     nextindent += 1
-  elif pc.startswith('elseif') or pc.startswith('else'):
+  elif pcs.startswith('elseif') or pcs.startswith('else'):
     indent -= 1
-  if pc.startswith('end') or pc.endswith('end'):
+  if pcs.startswith('end') or pcs.endswith('end'):
     indent -= 1
     nextindent -= 1
   # handle brackets...
