@@ -20,6 +20,8 @@ while line:
   elif line.startswith('end'):
     indent -= 1
     nextindent -= 1
+  # handle brackets...
+  nextindent += line.count('(') - line.count(')')
   sys.stdout.write(' ' * (indentsize * indent) + line + '\n')
   indent = nextindent
   last_line = line
