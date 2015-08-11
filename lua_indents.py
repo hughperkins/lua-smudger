@@ -51,8 +51,8 @@ while line:
       indent += block_indent
       block_indent = next_block_indent
   pcs = pc.strip()
-  if(pcs.startswith('if') or pcs.startswith('for ') or pcs.startswith('while') or pcs.startswith('function')
-      or pcs.startswith('local function') or pcs.find(' = function(') >= 0):
+  if(pcs.startswith('if') or pcs.endswith(' do') or pcs == 'do' or pcs.startswith('function')
+      or pcs.startswith('local function') or pcs.find(' function(') >= 0 or pcs.find('=function(') >= 0):
     nextindent += 1
   elif pcs.startswith('elseif') or pcs.startswith('else'):
     indent -= 1
