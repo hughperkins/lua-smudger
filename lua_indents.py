@@ -19,7 +19,7 @@ while line:
   else:
     pc = line
     comments = ''
-  if(pc.startswith('if') or pc.startswith('for') or pc.startswith('while') or pc.startswith('function')
+  if(pc.startswith('if') or pc.startswith('for ') or pc.startswith('while') or pc.startswith('function')
       or pc.startswith('local function') or pc.find(' = function(') >= 0):
     nextindent += 1
   elif pc.startswith('elseif') or pc.startswith('else'):
@@ -28,7 +28,10 @@ while line:
     indent -= 1
     nextindent -= 1
   # handle brackets...
-  nextindent += pc.count('(') - pc.count(')')
+  excess_brackets = pc.count('(') + pc.count('{') - pc.count(')') - pc.count('}')
+  nextindent += excess_brackets
+  if excess_brackets < 0 and (pc[0] == ')' or pc[0] == '}'):
+    indent = nextindent
   sys.stdout.write(' ' * (indentsize * indent) + pc + comments + '\n')
   indent = nextindent
   last_line = line
