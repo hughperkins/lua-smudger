@@ -13,11 +13,11 @@ last_line = None
 while line:
   line = line.strip()
   if(line.startswith('if') or line.startswith('for') or line.startswith('while') or line.startswith('function')
-      or line.startswith('local function')):
+      or line.startswith('local function') or line.find(' = function(') >= 0):
     nextindent += 1
   elif line.startswith('elseif') or line.startswith('else'):
     indent -= 1
-  elif line.startswith('end'):
+  if line.startswith('end') or line.endswith('end'):
     indent -= 1
     nextindent -= 1
   # handle brackets...
